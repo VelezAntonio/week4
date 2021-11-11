@@ -3,22 +3,23 @@ import java.util.*;
 import static java.util.Collections.*;
 
 public class Main {
-
+//declare variables
     static Double n;
     private static String userString;
     private static int menuChoice;
-    private static char choice;
     static List<Integer> validInt= Arrays.asList(1,2,3,4);
-    private static boolean error;
     static ArrayList<Double> nums = new ArrayList<>();
     private static String word;
 
     public static void main(String[] args) {
         Scanner userInput = new Scanner(System.in);
+        //prompt user to enter numbers
         System.out.println("Please Enter a set of numbers: ");
+        char choice;
+        boolean error;
         do {
             System.out.println("Enter number");
-
+            error=false; //set error to false to initiate dowhile loop
             do {
                 error = false;
                 try {
@@ -26,11 +27,12 @@ public class Main {
                     nums.add(n);
                 } catch (InputMismatchException e) {
                     System.out.println("Please enter a valid number: ");
-                    error=true;
+                    error =true;
+                    userInput.next();
                 }
             } while (error);
             System.out.println("Please enter Y to continue, anything else to exit.");
-            choice=userInput.next().toUpperCase().charAt(0);
+            choice =userInput.next().toUpperCase().charAt(0);
 
         }while(choice == 'Y');
 
@@ -42,16 +44,18 @@ public class Main {
         System.out.println("4. Find Minimum Value");
 
         do{
-            error=false;
+            error =false;
             try {
                 menuChoice = userInput.nextInt();
                 if(!validInt.contains(menuChoice)){
-                    error=true;
+                    System.out.println("Please enter a valid choice!");
+                    error =true;
+
                 }
 
             } catch (InputMismatchException exception) {
                 System.out.println("Please enter a choice 1-4!");
-                error=true;
+                error =true;
                 userInput.next();
 
             }
@@ -63,7 +67,7 @@ public class Main {
                     break;
                 case 2:
                     System.out.println("Set of numbers in descending order: ");
-                    Collections.sort(nums,Collections.reverseOrder());
+                    nums.sort(Collections.reverseOrder());
                     System.out.println(nums);
                     break;
                 case 3:
@@ -74,17 +78,18 @@ public class Main {
             }
 
         }while(error);
+
+        System.out.println("");
+
+        System.out.println("Please enter a string: ");
         userInput.next();
-
-
         do {
-            System.out.println("Please enter a string: ");
             error = false;
             try {
                 userString= userInput.nextLine();
             } catch (InputMismatchException e) {
                 System.out.println("Please enter a string!");
-                error=true;
+                error =true;
             }
         } while (error);
 
@@ -95,9 +100,10 @@ public class Main {
                 word=userInput.nextLine();
             } catch (InputMismatchException e) {
                 System.out.println("Please enter a string!");
-                error=true;
+                error =true;
             }
         } while (error);
+        System.out.print("Number of times word appears in the string: ");
         System.out.println(userString.split(word,-1).length-1);
         }
 
